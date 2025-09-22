@@ -35,3 +35,13 @@ _Fill in soon (after we pick the build system/toolchain)._
 ```bash
 # Example (if using Makefile)
 make
+```
+
+---
+
+### Contributors
+
+- Brian Kemp — bkemp42@tntech.edu
+- Lewis Bates — lfbates42@tntech.edu
+- Oluwadara Odukoya — ojodukoya42@tntech.edu
+- Meicheng Xiao — mxiao42@tntech.edu
