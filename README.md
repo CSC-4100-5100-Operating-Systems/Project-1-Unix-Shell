@@ -23,14 +23,14 @@ Build a command-line interpreter that:
 ---
 
 ## Requirements
-_Fill in soon (after we pick the build system/toolchain)._
+_Fill in soon._
 
 ---
 
 ## Usage
 
 ### Build
-_Fill in soon (after we pick the build system/toolchain)._
+_Fill in soon._
 
 ```bash
 # Example (if using Makefile)
