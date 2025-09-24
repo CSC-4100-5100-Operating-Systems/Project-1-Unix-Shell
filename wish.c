@@ -24,8 +24,6 @@ int main(void) {
         if (input[0] == '\0') {
             continue;
         }
-        
-        printf("you typed: %s\n", input);
     }
 
     return 0;
