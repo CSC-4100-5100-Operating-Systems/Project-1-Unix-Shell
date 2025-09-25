@@ -1,0 +1,22 @@
+list of programs needed
+
+bash
+cat
+cd 
+chmod
+date
+dir
+echo
+exit
+grep
+hostname
+kill
+ls 
+mkdir
+open
+path
+ping
+pwd 
+rmdir
+touch
+vi
