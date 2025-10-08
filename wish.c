@@ -1,11 +1,19 @@
-// wish.c — minimal starter shell
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include "batch.h"
 
 int main(int argc, char *argv[]) {
-    FILE *in = stdin;          // read commands from standard input (keyboard)
+    FILE *in = stdin;
+    
+    // batch mode check. if the arguments coming is at least 2, e.g. "./wish batch_file.txt"
+    // where ./wish is argument #1 and batch_file.txt is argument #2 therefore the count or argc will
+    // equal two then call the batch method.
+    if (argc == 2) {
+        return runBatchFile(argv[1]);
+    }
 
     char *line = NULL;         // buffer that getline() will allocate/resize
     size_t cap = 0;            // capacity hint for getline()
