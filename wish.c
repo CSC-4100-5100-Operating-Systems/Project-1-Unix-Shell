@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "commands.h"
+
 
 int main(int argc, char *argv[]) {
     FILE *in = stdin;          // read commands from standard input (keyboard)
@@ -39,5 +41,11 @@ int main(int argc, char *argv[]) {
         // placeholder: later, parse with strsep() and exec via fork/execv
         // this is a test print out to confirm its taking in what you are typing
         printf("you typed: %s\n", line);
+
+        //Strip the input into the command and arguments
+        char *tokens[20]; // An array to store the command and its arguments
+        tokenize_input(line, tokens);
+
+        
     }
 }
