@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
         char *tokens[20]; // An array to store the command and its arguments
         tokenize_input(line, tokens);
 
-        
+        // Execute command with its arguments
+        execute_command(tokens);
     }
 }
