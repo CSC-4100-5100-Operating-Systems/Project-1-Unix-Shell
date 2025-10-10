@@ -1,4 +1,4 @@
-// This contains code to process Linux commands entered in the shell's interactive mode
+// This file contains code to process Linux commands entered in the shell's interactive mode
 // Written by Oluwadara Odukoya
 
 #include <stdio.h>
