@@ -3,3 +3,6 @@ wish
 
 # ignoring test folder with code from class
 /test
+
+# ignoring the .vscode folder
+.vscode/*

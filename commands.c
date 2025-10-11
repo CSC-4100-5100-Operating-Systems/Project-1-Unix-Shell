@@ -3,9 +3,11 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>   // For access, fork, execv
-#include <sys/wait.h> // For waitpid
-#include <stdlib.h> // for exit()
+#include <unistd.h>    // access, chdir, fork, execv
+#include <sys/wait.h>  // waitpid
+#include <stdlib.h>    // exit, strdup
+#include <limits.h>    // PATH_MAX
+#include <linux/limits.h>
 
 // This functions splits the user's input into tokens
 void tokenize_input(char *line, char **tokens){
@@ -37,9 +39,67 @@ void execute_command(char **tokens) {
     }
 
     // 1. Define the search paths
-    char *search_paths[] = {"/bin", "/usr/bin", NULL}; // NULL-terminated
+    char *search_paths[64] = {"/bin", "/usr/bin", NULL}; // NULL-terminated
+    int search_paths_count   = 2;
 
-    char full_path[1024];
+    // count args once (tokens is NULL-terminated)
+    int argc = 0;
+    while (tokens[argc] != NULL) argc++;
+
+    // **************** built-ins: exit, cd, path ****************
+    // exit: no arguments allowed
+    if (strcmp(command, "exit") == 0) {
+        if (argc != 1) {
+            print_error();
+            return;
+        }
+        exit(0);
+    }
+
+    // cd: exactly 1 argument
+    if (strcmp(command, "cd") == 0) {
+        if (argc != 2) {
+            print_error();
+            return;
+        }
+        if (chdir(tokens[1]) != 0) {
+            print_error(); // or perror("cd");
+        }
+        return; // handled in parent
+    }
+
+    // path: 0 or more args; overwrites search path
+    if (strcmp(command, "path") == 0) {
+        // clear existing list, freeing only heap strings
+        for (int i = 0; i < search_paths_count; i++) {
+            if (search_paths[i] &&
+                search_paths[i] != (char*)"/bin" &&
+                search_paths[i] != (char*)"/usr/bin") {
+                free(search_paths[i]);
+            }
+            search_paths[i] = NULL;
+        }
+        search_paths_count = 0;
+
+        // add each argument as a new path entry
+        // e.g., "path /bin /usr/bin"
+        for (int i = 1; i < argc && i < 64; i++) {
+            char *copy = strdup(tokens[i]);
+            if (!copy) { print_error(); break; }
+            search_paths[search_paths_count++] = copy;
+        }
+        // If no args given, search_paths_count stays 0 => only built-ins will work
+        return;
+    }
+    // **************** end built-ins **********************************
+
+    // If PATH list is empty, external commands are disabled
+    if (search_paths_count == 0) {
+        print_error();
+        return;
+    }
+
+    char full_path[PATH_MAX];
     int found = 0;
 
     // 2. Loop through the paths to find the executable
