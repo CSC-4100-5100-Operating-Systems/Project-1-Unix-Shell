@@ -1,0 +1,23 @@
+pwd
+cd /tmp
+pwd
+mkdir wish_test
+cd wish_test
+pwd
+touch a.txt
+touch b.txt
+ls -l
+chmod 600 a.txt
+stat a.txt
+mv b.txt c.txt
+cp a.txt copy_a.txt
+ls -l
+whoami
+id
+uname -s
+date
+ls -la
+cd ..
+ls -1
+rm -rf wish_test
+pwd
