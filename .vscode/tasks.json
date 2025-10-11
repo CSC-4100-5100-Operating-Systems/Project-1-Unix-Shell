@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build wish",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-g",
+                "wish.c",
+                "commands.c",
+                "-o",
+                "wish"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Compiler: gcc"
+        }
+    ]
+}
