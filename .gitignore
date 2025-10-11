@@ -1,2 +1,5 @@
+# ignoring wish file generated from testing locally
 wish
+
+# ignoring test folder with code from class
 /test
